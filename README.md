@@ -39,7 +39,7 @@ Project is ready for deployment on Vercel or Netlify.
 [![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/yourusername/cauchy-distribution)
 
 ## Course Information
-- Course: İST631 - Theoretical Statistics
+- Course: İST631 - Kuramsal İstatistik
 - Instructor: Doç. Dr. Ayten Yiğiter
 - Student: N23235557 - Mustafa Özaytaç
 - Institution: Hacettepe University
