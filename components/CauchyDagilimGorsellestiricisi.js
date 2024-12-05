@@ -1,75 +1,92 @@
-// ... önceki importlar aynı ...
+import React, { useState, useEffect } from 'react';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+
+// ... [cauchyPDF and cauchyCDF functions stay the same]
 
 const CauchyDagilimGorsellestiricisi = () => {
-  // ... önceki state ve hesaplamalar aynı ...
+  // ... [state declarations stay the same]
 
   return (
     <div className="container mx-auto p-4">
-      {/* ... başlık kısmı aynı ... */}
-
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-        {/* ... slider kartları aynı ... */}
+      {/* Header Section */}
+      <div className="bg-blue-100 border-l-4 border-blue-500 p-4 mb-6">
+        <h2 className="text-xl font-bold text-blue-800 text-center">
+          Sınıf Adı: İST631 - Kuramsal İstatistik Dersi Uygulama Ödevi
+        </h2>
+        <h3 className="text-lg text-blue-700 text-center mt-2">
+          Ara Sınav Ödevi: Cauchy Dağılımı Görselleştiricisi
+        </h3>
+        <div className="text-center mt-2 text-blue-600">
+          <p>Öğretim Üyesi: Doç. Dr. Ayten Yiğiter</p>
+          <p>Öğrenci: N23235557 - Mustafa Özaytaç</p>
+        </div>
       </div>
 
+      {/* Sliders Section */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-        <Card>
-          <CardHeader>
-            <CardTitle>Olasılık Yoğunluk Fonksiyonu (PDF)</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <ResponsiveContainer width="100%" height={300}>
-              <LineChart data={pdfVerileri}>
-                {/* ... grafik bileşenleri aynı ... */}
-              </LineChart>
-            </ResponsiveContainer>
-          </CardContent>
-        </Card>
+        <div className="bg-white rounded-lg shadow p-4">
+          <h3 className="text-lg font-semibold mb-2">Konum Parametresi (x0)</h3>
+          <input
+            type="range"
+            min="-10"
+            max="10"
+            step="0.1"
+            value={konumParametresi}
+            onChange={(e) => setKonumParametresi(Number(e.target.value))}
+            className="w-full"
+          />
+          <span className="text-sm">Değer: {konumParametresi.toFixed(2)}</span>
+        </div>
 
-        <Card>
-          <CardHeader>
-            <CardTitle>Kümülatif Dağılım Fonksiyonu (CDF)</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <ResponsiveContainer width="100%" height={300}>
-              <LineChart data={cdfVerileri}>
-                {/* ... grafik bileşenleri aynı ... */}
-              </LineChart>
-            </ResponsiveContainer>
-          </CardContent>
-        </Card>
+        <div className="bg-white rounded-lg shadow p-4">
+          <h3 className="text-lg font-semibold mb-2">Ölçek Parametresi</h3>
+          <input
+            type="range"
+            min="0.1"
+            max="5"
+            step="0.1"
+            value={olcekParametresi}
+            onChange={(e) => setOlcekParametresi(Number(e.target.value))}
+            className="w-full"
+          />
+          <span className="text-sm">Değer: {olcekParametresi.toFixed(2)}</span>
+        </div>
       </div>
 
-      <div className="mt-6 p-4 bg-gray-100 rounded-lg">
-        <h3 className="text-xl font-semibold mb-4">Cauchy Dağılımı Hakkında</h3>
-        <p className="mb-4">
-          Cauchy dağılımı, sürekli olasılık dağılımlarından biridir ve Lorentz dağılımı olarak da bilinir. 
-          19. yüzyılda Fransız matematikçi Augustin Louis Cauchy tarafından tanıtılmıştır.
-        </p>
-        
-        <h4 className="text-lg font-semibold mb-2">Matematiksel Özellikler</h4>
-        <ul className="list-disc pl-5 mb-4">
-          <li>PDF fonksiyonu: f(x) = 1 / (π γ [1 + ((x-x₀)/γ)²])</li>
-          <li>CDF fonksiyonu: F(x) = (1/π) arctan((x-x₀)/γ) + 1/2</li>
-          <li>x₀: Konum parametresi (medyan)</li>
-          <li>γ: Ölçek parametresi (yarı genişlik)</li>
-        </ul>
+      {/* Charts Section */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+        <div className="bg-white rounded-lg shadow p-4">
+          <h3 className="text-lg font-semibold mb-2">Olasılık Yoğunluk Fonksiyonu (PDF)</h3>
+          <ResponsiveContainer width="100%" height={300}>
+            <LineChart data={pdfVerileri}>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="x" />
+              <YAxis />
+              <Tooltip />
+              <Legend />
+              <Line type="monotone" dataKey="pdf" stroke="#8884d8" dot={false} name="Olasılık Yoğunluğu" />
+            </LineChart>
+          </ResponsiveContainer>
+        </div>
 
-        <h4 className="text-lg font-semibold mb-2">Temel Özellikler</h4>
-        <ul className="list-disc pl-5 mb-4">
-          <li>Simetrik bir dağılımdır ve mod, medyan değeri x₀'a eşittir</li>
-          <li>Ortalama, varyans ve diğer momentler tanımsızdır</li>
-          <li>Kararlı bir dağılımdır: Cauchy dağılımlı rastgele değişkenlerin toplamı yine Cauchy dağılımına sahiptir</li>
-          <li>Standart Cauchy dağılımı için x₀=0 ve γ=1 alınır</li>
-        </ul>
+        <div className="bg-white rounded-lg shadow p-4">
+          <h3 className="text-lg font-semibold mb-2">Kümülatif Dağılım Fonksiyonu (CDF)</h3>
+          <ResponsiveContainer width="100%" height={300}>
+            <LineChart data={cdfVerileri}>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="x" />
+              <YAxis />
+              <Tooltip />
+              <Legend />
+              <Line type="monotone" dataKey="cdf" stroke="#82ca9d" dot={false} name="Kümülatif Olasılık" />
+            </LineChart>
+          </ResponsiveContainer>
+        </div>
+      </div>
 
-        <h4 className="text-lg font-semibold mb-2">Uygulama Alanları</h4>
-        <ul className="list-disc pl-5">
-          <li>Fiziksel rezonans olaylarının modellenmesi</li>
-          <li>Spektroskopi ve optik çalışmaları</li>
-          <li>Finansal risk modellemesi</li>
-          <li>Sinyal işleme ve gürültü analizi</li>
-          <li>Kuantum mekaniği hesaplamaları</li>
-        </ul>
+      {/* Info Section */}
+      <div className="bg-gray-100 rounded-lg p-4">
+        {/* ... [Info section content stays the same] ... */}
       </div>
     </div>
   );
