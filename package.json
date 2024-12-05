@@ -10,12 +10,15 @@
   "dependencies": {
     "@radix-ui/react-label": "^2.0.2",
     "@radix-ui/react-slider": "^1.1.2",
+    "@radix-ui/react-card": "^2.0.0",
     "next": "14.0.3",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "recharts": "^2.10.0",
+    "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
-    "tailwind-merge": "^2.0.0"
+    "tailwind-merge": "^2.0.0",
+    "lucide-react": "^0.294.0"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.16",
